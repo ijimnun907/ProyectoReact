@@ -56,6 +56,15 @@ export default function Gasolinera() {
         }
     }, [selectedLocalidad]);
 
+    const ordenarPorPrecio = (tipo) => {
+        const gasolinerasOrdenadas = [...gasolineras].sort((a, b) => {
+            const precioA = parseFloat(a[tipo]?.replace(',', '.') || Infinity);
+            const precioB = parseFloat(b[tipo]?.replace(',', '.') || Infinity);
+            return precioA - precioB;
+        });
+        setGasolineras(gasolinerasOrdenadas);
+    };
+
     return (
         <div className="container">
             <h1>Precios de Gasolinera</h1>
@@ -101,11 +110,11 @@ export default function Gasolinera() {
                             <th>Estación</th>
                             <th>Dirección</th>
                             <th>Horario</th>
-                            <th>Gasolina95</th>
-                            <th>Gasolina98</th>
-                            <th>GasóleoA</th>
-                            <th>GasóleoA+</th>
-                            <th>GasóleoB</th>
+                            <th onClick={() => ordenarPorPrecio("Precio Gasolina 95 E5")}>Gasolina95</th>
+                            <th onClick={() => ordenarPorPrecio("Precio Gasolina 98 E5")}>Gasolina98</th>
+                            <th onClick={() => ordenarPorPrecio("Precio Gasoleo A")}>GasóleoA</th>
+                            <th onClick={() => ordenarPorPrecio("Precio Gasoleo Premium")}>GasóleoA+</th>
+                            <th onClick={() => ordenarPorPrecio("Precio Gasoleo B")}>GasóleoB</th>
                         </tr>
                         </thead>
                         <tbody>
