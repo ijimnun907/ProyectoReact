@@ -18,28 +18,28 @@ export default function Gasolinera() {
     }, []);
 
     useEffect(() => {
+        setGasolineras([]);
+        setProvincias([]);
+        setLocalidades([]);
+        setSelectedProvincia("null");
+        setSelectedLocalidad("null");
+
         if (selectedComunidad !== "null") {
             fetch(`https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/Listados/ProvinciasPorComunidad/${selectedComunidad}`)
                 .then((res) => res.json())
                 .then((data) => setProvincias(data));
-        } else {
-            setProvincias([]);
-            setLocalidades([]);
-            setGasolineras([]);
-            setSelectedProvincia("null");
-            setSelectedLocalidad("null");
         }
     }, [selectedComunidad]);
 
     useEffect(() => {
+        setGasolineras([]);
+        setLocalidades([]);
+        setSelectedLocalidad("null");
+
         if (selectedProvincia !== "null") {
             fetch(`https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/Listados/MunicipiosPorProvincia/${selectedProvincia}`)
                 .then((res) => res.json())
                 .then((data) => setLocalidades(data));
-        } else {
-            setLocalidades([]);
-            setGasolineras([]);
-            setSelectedLocalidad("null");
         }
     }, [selectedProvincia]);
 
@@ -89,7 +89,7 @@ export default function Gasolinera() {
                         </select>
                     </div>
                 )}
-                {localidades.length > 0 && (
+                {localidades.length > 0 && selectedProvincia !== "null" && (
                     <div className="form-group">
                         <label>Localidad</label>
                         <select value={selectedLocalidad} onChange={(e) => setSelectedLocalidad(e.target.value)}>
@@ -139,5 +139,3 @@ export default function Gasolinera() {
         </div>
     );
 }
-
-
