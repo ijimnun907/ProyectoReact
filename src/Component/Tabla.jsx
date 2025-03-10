@@ -1,4 +1,5 @@
 import React from 'react';
+import './Tabla.css';
 
 const Tabla = ({ gasolineras, fecha, ordenarPorPrecio }) => {
     return (
